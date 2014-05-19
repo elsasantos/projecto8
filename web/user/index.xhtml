@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+    </h:head>
+    <h:body>
+        <h1>Collaborative Whiteboard App</h1>
+        <table>
+            <tr>
+                <td>
+                    <canvas id="myCanvas" width="250" height="250" style="border:1px solid #000000;"></canvas>
+                </td>
+                <td>
+                    <form name="inputForm">
+                        <table>
+                            <tr>
+                                <th>Color</th>
+                                <td><input type="radio" name="color" value="#FF0000" checked="true"/>Red</td>
+                                <td><input type="radio" name="color" value="#0000FF"/>Blue</td>
+                                <td><input type="radio" name="color" value="#FF9900"/>Orange</td>
+                                <td><input type="radio" name="color" value="#33CC33"/>Green</td>
+                            </tr>
+
+                            <tr>
+                                <th>Shape</th>
+                                <td><input type="radio" name="shape" value="square" checked="true"/>Square</td>
+                                <td><input type="radio" name="shape" value="circle"/>Circle</td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            <tr>
+                                <th> </th>
+                                <td><input type="submit" value="Send Snapshot" onclick="defineImageBinary();
+                                        return false;"/></td>
+                                <td><input type="checkbox" id="instant" value="Online" checked="true"/>Online</td> 
+                                <td><input type="submit" value="Clear" onclick="clearIt();"/></td>
+                                <td><input type="submit" value="Peers" onclick="alert('Nº of peers: #{myWhiteboard.nPeer()}');"/></td>
+                                <td> </td>
+                            </tr>
+                        </table>
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <div id="output" />
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
+    </h:body>
+</html>
+
