@@ -27,11 +27,14 @@ public class UserApp implements Serializable {
     private Long id;
 
     private String name;
-    
+
     private String password;
-    
+
     @OneToMany(mappedBy = "userApp", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Snapshot> snapshotList;
+
+    public UserApp() {
+    }
 
     public List<Snapshot> getSnapshotList() {
         return snapshotList;
@@ -56,8 +59,7 @@ public class UserApp implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
+
     public Long getId() {
         return id;
     }

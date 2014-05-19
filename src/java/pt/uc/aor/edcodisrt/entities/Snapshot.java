@@ -31,11 +31,11 @@ public class Snapshot implements Serializable {
 
     @ManyToOne
     private UserApp userApp;
-    
+
     String imagePath;
-    
-    
-    
+
+    public Snapshot() {
+    }
 
     public Long getId() {
         return id;
@@ -43,6 +43,30 @@ public class Snapshot implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getImageDate() {
+        return imageDate;
+    }
+
+    public void setImageDate(Date imageDate) {
+        this.imageDate = imageDate;
+    }
+
+    public UserApp getUserApp() {
+        return userApp;
+    }
+
+    public void setUserApp(UserApp userApp) {
+        this.userApp = userApp;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override
