@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -33,7 +34,18 @@ public class UserApp implements Serializable {
     @OneToMany(mappedBy = "userApp", cascade = {CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval = true)
     private List<Snapshot> snapshotList;
 
+    @ManyToOne
+    private Group group;
+
     public UserApp() {
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public List<Snapshot> getSnapshotList() {
