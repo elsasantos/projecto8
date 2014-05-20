@@ -15,16 +15,8 @@
                 </td>
             </tr>
         </table>
-        <h:panelGrid>
-            <form method="POST" action="j_security_check">
-                Username: <input type="text" name="j_username" />
-                Password: <input type="password" name="j_password" />
-                <input type="submit" value="Login" />
-                <input type="reset" value="Reset" />
-            </form>
-       </h:panelGrid>
-        
-        <div id="output" />
+
+        <h:link outcome="user/index" value="Login" />
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
     </h:body>
