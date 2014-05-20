@@ -1,24 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-    </h:head>
-    <h:body>
-        <h1>Collaborative Whiteboard App</h1>
-        <table>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="./resources/template/template.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:define name="top">
+               <table align="center" >
             <tr>
                 <td>
-                    <canvas id="myCanvas" width="250" height="250" style="border:1px solid #000000;"></canvas>
+                    <h:outputLabel value="Welcome to Collaborative Whiteboard App" style="font-size: 25px"/>
                 </td>
-                <td>
-                </td>
-            </tr>
-        </table>
+            <tr>
 
-        <h:link outcome="user/index" value="Login" />
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
-    </h:body>
-</html>
+            </tr>
+            </tr>
+
+        </table>
+                </ui:define>  
+        <ui:define name="content"> 
+            <h:form>
+                <table align="center">
+                    <tr>
+                        <td>
+                            <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000;"></canvas>
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <h:link outcome="user/index" value="Login" />
+                        </td>
+
+                    </tr>
+                </table>
+
+
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
+            </h:form>
+        </ui:define>   
+</ui:composition>
+
 
