@@ -35,16 +35,16 @@ public class UserApp implements Serializable {
     private List<Snapshot> snapshotList;
 
     @ManyToOne
-    private Group group;
+    private Groups group;
 
     public UserApp() {
     }
 
-    public Group getGroup() {
+    public Groups getGroup() {
         return group;
     }
 
-    public void setGroup(Group group) {
+    public void setGroup(Groups group) {
         this.group = group;
     }
 

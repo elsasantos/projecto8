@@ -8,14 +8,14 @@ package pt.uc.aor.edcodisrt.facades;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import pt.uc.aor.edcodisrt.entities.Group;
+import pt.uc.aor.edcodisrt.entities.Groups;
 
 /**
  *
  * @author Elsa
  */
 @Stateless
-public class GroupFacade extends AbstractFacade<Group> {
+public class GroupFacade extends AbstractFacade<Groups> {
     @PersistenceContext(unitName = "projecto8")
     private EntityManager em;
 
@@ -25,7 +25,7 @@ public class GroupFacade extends AbstractFacade<Group> {
     }
 
     public GroupFacade() {
-        super(Group.class);
+        super(Groups.class);
     }
 
 }
