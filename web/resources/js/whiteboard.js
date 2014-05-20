@@ -42,9 +42,7 @@ function defineImage(evt) {
         }
     });
     drawImageText(json);
-    if (document.getElementById("instant").checked) {
         sendText(json);
-    }
 }
 
 function drawImageText(image) {
@@ -62,6 +60,7 @@ function drawImageText(image) {
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
     }
+    
 }
 
 function drawImageBinary(blob) {

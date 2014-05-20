@@ -22,13 +22,13 @@ function onError(evt) {
 
 // For testing purposes
 var output = document.getElementById("output");
-websocket.onopen = function(evt) { onOpen2(evt) };
+websocket.onopen = function(evt) { onOpen(evt) };
 
 function writeToScreen(message) {
     output.innerHTML += message + "<br>";
 }
 
-function onOpen2() {
+function onOpen() {
     writeToScreen("Connected to " + wsUri);
 }
 // End test functions
@@ -38,6 +38,7 @@ websocket.onmessage = function(evt) { onMessage(evt) };
 function sendText(json) {
     console.log("sending text: " + json);
     websocket.send(json);
+    defineImageBinary();
 }
                 
 function onMessage(evt) {
@@ -54,3 +55,5 @@ function sendBinary(bytes) {
     console.log("sending binary: " + Object.prototype.toString.call(bytes));
     websocket.send(bytes);
 }
+
+
