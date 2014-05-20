@@ -4,7 +4,14 @@
  * and open the template in the editor.
  */
 
-var wsUri = "ws://" + document.location.host + document.location.pathname + "whiteboardendpoint";
+var wsUri 
+if(document.location.protocol === "https:"){
+   var wsUri= "wss://" + document.location.host + "/EdcodisRT/whiteboardendpoint"; 
+} else {
+    var wsUri= "ws://" + document.location.host + "/EdcodisRT/whiteboardendpoint";
+} 
+   
+
 var websocket = new WebSocket(wsUri);
 
 websocket.onerror = function(evt) { onError(evt) };

@@ -59,7 +59,10 @@ public class MyWhiteboard {
     }
 
     public String nPeer() {
-        return "" + peers.size();
+        String p = "" + peers.size();
+        System.out.println("peers: " + p);
+        return p;
+
     }
 
 }
