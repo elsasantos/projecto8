@@ -16,6 +16,8 @@ and open the template in the editor.
        <h1>Collaborative Whiteboard App</h1>
 
         <h:link outcome="/index" value="Back to Homepage" />
+        <h:link value="Logout" onclick="#{logoutBean.logout()}" />
+        
         <table>
             <tr>
                 <td>
@@ -53,7 +55,6 @@ and open the template in the editor.
             </tr>
         </table>
         <div id="output" />
-         <td> </td>
         <h:outputLabel value="Nº of peers: #{myWhiteboard.nPeer()}"/>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
