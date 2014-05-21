@@ -11,7 +11,6 @@ if (document.location.protocol === "https:") {
     wsUri = "ws://" + document.location.host + "/EdcodisRT/whiteboardendpoint";
 }
 
-
 var websocket = new WebSocket(wsUri);
 
 websocket.onerror = function(evt) {
@@ -47,8 +46,8 @@ function sendText(json) {
 
 function onMessage(evt) {
     console.log("received: " + evt.data);
-    if (typeof evt.data == "string") {
-        drawImageText(evt.data);
+    if (typeof evt.data === "string") {
+        showUsersNumber(evt.data);
     } else {
         drawImageBinary(evt.data);
     }
@@ -59,5 +58,3 @@ function sendBinary(bytes) {
     console.log("sending binary: " + Object.prototype.toString.call(bytes));
     websocket.send(bytes);
 }
-
-

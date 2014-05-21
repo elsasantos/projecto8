@@ -6,6 +6,9 @@
 
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
+
+var numberPeers = document.getElementById("numberPeers");
+
 canvas.addEventListener("click", defineImage, false);
 
 function getCurrentPos(evt) {
@@ -61,7 +64,10 @@ function drawImageText(image) {
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
     }
+}
 
+function showUsersNumber(str){
+    numberPeers.setAttribute("value",str);
 }
 
 function drawImageBinary(blob) {
@@ -91,8 +97,8 @@ function defineImageBinary() {
     sendBinary(buffer);
 }
 
-
 function clearIt() {
-    alert('Vou limpar!');
-    sendBinary( new buffer);
+    alert('Vou limpar!!!');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    defineImageBinary();
 }
