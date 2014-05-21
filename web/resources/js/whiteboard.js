@@ -43,6 +43,7 @@ function defineImage(evt) {
     });
     drawImageText(json);
         sendText(json);
+        defineImageBinary;
 }
 
 function drawImageText(image) {

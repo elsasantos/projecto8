@@ -20,18 +20,18 @@ function onError(evt) {
     writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
 }
 
-// For testing purposes
-var output = document.getElementById("output");
-websocket.onopen = function(evt) { onOpen(evt) };
-
-function writeToScreen(message) {
-    output.innerHTML += message + "<br>";
-}
-
-function onOpen() {
-    writeToScreen("Connected to " + wsUri);
-}
-// End test functions
+//// For testing purposes
+//var output = document.getElementById("output");
+//websocket.onopen = function(evt) { onOpen(evt) };
+//
+//function writeToScreen(message) {
+//    output.innerHTML += message + "<br>";
+//}
+//
+//function onOpen() {
+//    writeToScreen("Connected to " + wsUri);
+//}
+//// End test functions
 
 websocket.onmessage = function(evt) { onMessage(evt) };
 

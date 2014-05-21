@@ -2,9 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                template="./resources/template/template.xhtml"
+                template="/resources/template/template.xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    
+
     <ui:define name="content">
         <h1>Collaborative Whiteboard App</h1>
 
@@ -46,6 +46,8 @@
             </tr>
         </table>
         <div id="output" />
+         <td> </td>
+        <h:outputLabel value="Nº of peers: #{myWhiteboard.nPeer()}"/>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
 

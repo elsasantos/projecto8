@@ -54,8 +54,8 @@ public class MyWhiteboard {
 
     @OnOpen
     public void onOpen(Session peer) {
+        peers.add(peer);//qdo se acede ao endpoint
         try {
-            peers.add(peer);//qdo se acede ao endpoint
             peer.getBasicRemote().sendBinary(bb);
         } catch (IOException ex) {
             Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
@@ -67,10 +67,13 @@ public class MyWhiteboard {
         peers.remove(peer);
     }
 
-    public String nPeer() {
-        String p = "" + peers.size();
-        System.out.println("peers: " + p);
-        return p;
+    public int nPeer() {
+        int count = 0;
+        for (Session peer : peers) {
+            count++;
+        }
+        System.out.println("peers: " + count);
+        return count;
 
     }
 
