@@ -10,8 +10,6 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Named;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -29,37 +27,36 @@ import javax.websocket.server.ServerEndpoint;
 public class MyWhiteboard {
 
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
-    private ByteBuffer bb = ByteBuffer.allocate(1000000);
+
+    private static ByteBuffer dataActive = ByteBuffer.allocate(1000000);
 
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
-        System.out.println("broadcastFigure: " + figure);
+
+        System.out.println(
+                "broadcastFigure: " + figure);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
-                peer.getBasicRemote().sendObject(figure);//msg enviada ao servidor
+                peer.getBasicRemote().sendObject(figure);
             }
         }
     }
 
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
-        bb = data;
+        dataActive = data;
         System.out.println("broadcastBinary: " + data);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
-                peer.getBasicRemote().sendBinary(data);//msg enviada ao servidor
+                peer.getBasicRemote().sendBinary(data);
             }
         }
     }
 
     @OnOpen
-    public void onOpen(Session peer) {
-        peers.add(peer);//qdo se acede ao endpoint
-        try {
-            peer.getBasicRemote().sendBinary(bb);
-        } catch (IOException ex) {
-            Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void onOpen(Session peer) throws IOException {
+        peers.add(peer);
+        peer.getBasicRemote().sendBinary(dataActive);
     }
 
     @OnClose

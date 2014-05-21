@@ -4,17 +4,19 @@
  * and open the template in the editor.
  */
 
-var wsUri 
-if(document.location.protocol === "https:"){
-   var wsUri= "wss://" + document.location.host + "/EdcodisRT/whiteboardendpoint"; 
+var wsUri
+if (document.location.protocol === "https:") {
+    wsUri = "wss://" + document.location.host + "/EdcodisRT/whiteboardendpoint";
 } else {
-    var wsUri= "ws://" + document.location.host + "/EdcodisRT/whiteboardendpoint";
-} 
-   
+    wsUri = "ws://" + document.location.host + "/EdcodisRT/whiteboardendpoint";
+}
+
 
 var websocket = new WebSocket(wsUri);
 
-websocket.onerror = function(evt) { onError(evt) };
+websocket.onerror = function(evt) {
+    onError(evt)
+};
 
 function onError(evt) {
     writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
@@ -33,14 +35,16 @@ function onError(evt) {
 //}
 //// End test functions
 
-websocket.onmessage = function(evt) { onMessage(evt) };
+websocket.onmessage = function(evt) {
+    onMessage(evt)
+};
 
 function sendText(json) {
     console.log("sending text: " + json);
     websocket.send(json);
     defineImageBinary();
 }
-                
+
 function onMessage(evt) {
     console.log("received: " + evt.data);
     if (typeof evt.data == "string") {
