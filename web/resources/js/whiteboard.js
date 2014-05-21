@@ -61,7 +61,7 @@ function drawImageText(image) {
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
     }
-    
+
 }
 
 function drawImageBinary(blob) {
@@ -94,7 +94,5 @@ function defineImageBinary() {
 
 function clearIt() {
     alert('Vou limpar!');
-    context.fill();
-    context = new context();
-    defineImageBinary();
+    sendBinary( new buffer);
 }

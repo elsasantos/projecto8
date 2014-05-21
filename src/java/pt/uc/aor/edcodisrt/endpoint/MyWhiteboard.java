@@ -74,4 +74,7 @@ public class MyWhiteboard {
 
     }
 
+//    public void clear() {
+//        dataActive = ByteBuffer.;
+//    }
 }
