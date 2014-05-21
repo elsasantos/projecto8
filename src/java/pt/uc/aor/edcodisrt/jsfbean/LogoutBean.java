@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 @Named(value = "logoutBean")
 @RequestScoped
 public class LogoutBean {
+
     // Built in logging is used now, but will be replaced in future with
     // 3rd party solution. Logging does what System.out.println() does and
     // more!
@@ -30,14 +31,14 @@ public class LogoutBean {
         // such as the HttpServletRequest object, which is needed to perform
         // the logout operation.
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = 
-                (HttpServletRequest) context.getExternalContext().getRequest();
+        HttpServletRequest request
+                = (HttpServletRequest) context.getExternalContext().getRequest();
 
         try {
             // added May 12, 2014
             HttpSession session = request.getSession();
             session.invalidate();
-            
+
             // this does not invalidate the session but does null out the user Principle
             request.logout();
         } catch (ServletException e) {
@@ -47,4 +48,10 @@ public class LogoutBean {
 
         return destination; // go to destination
     }
+
+    public String loggedUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        return context.getExternalContext().getRemoteUser();
+    }
+
 }

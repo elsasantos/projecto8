@@ -33,8 +33,7 @@ public class MyWhiteboard {
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
 
-        System.out.println(
-                "broadcastFigure: " + figure);
+        System.out.println("broadcastFigure: " + figure);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
                 peer.getBasicRemote().sendObject(figure);
@@ -57,24 +56,14 @@ public class MyWhiteboard {
     public void onOpen(Session peer) throws IOException {
         peers.add(peer);
         peer.getBasicRemote().sendBinary(dataActive);
+
+        for (Session p : peers) {
+            p.getBasicRemote().sendText(String.valueOf(peers.size()));
+        }
     }
 
     @OnClose
     public void onClose(Session peer) {
         peers.remove(peer);
     }
-
-    public int nPeer() {
-        int count = 0;
-        for (Session peer : peers) {
-            count++;
-        }
-        System.out.println("peers: " + count);
-        return count;
-
-    }
-
-//    public void clear() {
-//        dataActive = ByteBuffer.;
-//    }
 }

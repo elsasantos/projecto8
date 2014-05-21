@@ -15,9 +15,12 @@ and open the template in the editor.
     <body>
        <h1>Collaborative Whiteboard App</h1>
 
-        <h:link outcome="/index" value="Back to Homepage" />
-        <h:link value="Logout" onclick="#{logoutBean.logout()}" />
-        
+       <h:outputLabel value="Wellcome #{logoutBean.loggedUser()}"/> 
+       <p></p>
+       <h:link outcome="/index" value="Back to Homepage" />
+        <p></p>
+        <h:link value="Logout" onclick="#{logoutBean.logout()}" outcome="/index" />
+          <p></p>
         <table>
             <tr>
                 <td>
@@ -43,10 +46,8 @@ and open the template in the editor.
                             </tr>
                             <tr>
                                 <th> </th>
-                                <td><input type="submit" value="Send Snapshot" onclick="defineImageBinary();
-                                        return false;"/></td>
-                                <td><input type="checkbox" id="instant" value="Online" checked="true"/>Online</td> 
-                                <td><input type="submit" value="Clear" onclick="clearIt();"/></td>
+                                <td><input type="checkbox" id="instant" value="Abort" checked=""/>Abort</td> 
+                                <td><input type="submit" value="Clear" onclick="clearIt();return false;"/></td>
                                 <td> </td>
                             </tr>
                         </table>
@@ -54,8 +55,9 @@ and open the template in the editor.
                 </td>
             </tr>
         </table>
-        <div id="output" />
-        <h:outputLabel value="Nº of peers: #{myWhiteboard.nPeer()}"/>
+        <div id="numberPeers" >
+        <h:outputLabel value="showUsersNumber();return false;"/>
+        </div>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
 
