@@ -30,7 +30,7 @@ public class MessageDrivenBean implements MessageListener {
     @Override
     public void onMessage(Message message) {
                 try {
-            System.out.println("Recebido no Receiver: " + message.getBody(byte[].class));
+            System.out.println("Recebido no Message Driven Bean: " + message.getBody(byte[].class));
         } catch (JMSException ex) {
             Logger.getLogger(MessageDrivenBean.class.getName()).log(Level.SEVERE, null, ex);
         }

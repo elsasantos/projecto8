@@ -22,7 +22,7 @@ import javax.jms.Topic;
 @RequestScoped
 public class MessageProducerBean {
 
-    @Resource(mappedName = "jms/myTopic")
+    @Resource(lookup = "jms/myTopic")
     private Topic myTopic;
     @Inject
     @JMSConnectionFactory("jms/myTopicFactory")
@@ -34,6 +34,7 @@ public class MessageProducerBean {
 
 
     public void sendMessage(ByteBuffer message) {
+        System.out.println("entrou");
         byte[] b = new byte[message.capacity()];
         message.get(b, 0, b.length);
         context.createProducer().send(myTopic, b);

@@ -10,25 +10,30 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import pt.uc.aor.edcodisrt.jsfbean.MessageProducerBean;
 
 /**
  *
  * @author Elsa
  */
-@Named
+@Stateless
 @ServerEndpoint(value = "/whiteboardendpoint", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
 public class MyWhiteboard {
 
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
     private static ByteBuffer dataActive = ByteBuffer.allocate(1000000);
+    
+    @Inject
+    MessageProducerBean messageProducerBean;
 
     @OnMessage
     public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
@@ -43,13 +48,15 @@ public class MyWhiteboard {
 
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
-        dataActive = data;
+        
         System.out.println("broadcastBinary: " + data);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
                 peer.getBasicRemote().sendBinary(data);
             }
         }
+        dataActive = data;
+        messageProducerBean.sendMessage(data);
     }
 
     @OnOpen

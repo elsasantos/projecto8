@@ -22,7 +22,7 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <div align="right">
-                    <h:outputLabel value="Wellcome #{logoutBean.loggedUser()}   " 
+                    <h:outputLabel value="Wellcome #{userBean.loggedUser()}   " 
                                    style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
                     <p></p>
                     <h:link value="Logout" onclick="#{logoutBean.logout()}" outcome="/index" 
