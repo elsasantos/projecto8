@@ -7,7 +7,6 @@
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 
-var numberPeers = document.getElementById("numberPeers");
 
 canvas.addEventListener("click", defineImage, false);
 
@@ -59,7 +58,7 @@ function drawImageText(image) {
             context.arc(json.coords.x, json.coords.y, 5, 0, 2 * Math.PI, false);
             context.fill();
             break;
-        case "square":
+        case "square": 
         default:
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
@@ -67,7 +66,7 @@ function drawImageText(image) {
 }
 
 function showUsersNumber(str){
-    numberPeers.setAttribute("value",str);
+    $('#numberPeers').html(str);
 }
 
 function drawImageBinary(blob) {

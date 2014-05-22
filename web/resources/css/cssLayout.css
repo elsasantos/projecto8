@@ -1,11 +1,11 @@
 
 #top {
     position: relative;
-    background-color: #036fab;
-    color: aqua;
-    padding: 250px;
-    height: 450px;
-    margin: 0px 0px 250px 0px;
+    background-color: #464646;
+    color: #464646;
+    padding: 5px;
+    height: 50px;
+    margin: 0px 0px 50px 0px;
 }
 
 #bottom {
@@ -17,32 +17,32 @@
 
 #left {
     float: left;
-    background-color: #ece3a5;
+    background-color: #464646;
     padding: 5px;
     width: 150px;
 }
 
 #right {
     float: right;
-    background-color: #ece3a5;
+    background-color: #464646;
     padding: 5px;
     width: 150px;
 }
 
 .center_content {
     position: relative;
-    background-color: #dddddd;
+    background-color: #464646;
     padding: 5px;
 }
 
 .left_content {
-    background-color: #dddddd;
+    background-color: #464646;
     padding: 5px;
     margin-left: 230px;
 }
 
 .right_content {
-    background-color: #dddddd;
+    background-color: #464646;
     padding: 5px;
     margin: 0px 170px 0px 170px;
 }
@@ -59,4 +59,11 @@
   text-decoration : underline;
 }
 
+#numberPeers {
+    font-size: 30px;
+    color: gray;
+}
 
+#javax_faces_developmentstage_messages {
+    display: none;
+}

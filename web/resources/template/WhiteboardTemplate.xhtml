@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Whiteboard Template</title>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    </h:head>
+
+    <h:body style="background: #464646">
+
+        <div id="title">
+            <h:outputLabel value="Collaborative WHITEBOARD APP" 
+                           style="font-size: 35px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
+        </div>
+        <div id="top" class="top">
+            <ui:insert name="top">
+                <div align="right">
+                    <h:outputLabel value="Wellcome #{logoutBean.loggedUser()}   " 
+                                   style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
+                    <p></p>
+                    <h:link value="Logout" onclick="#{logoutBean.logout()}" outcome="/index" 
+                            style="font-size: 14px; color: #dddddd; font-weight: bold; font-family: Trebuchet MS"/>
+                </div>
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <p></p>
+                    <input type="submit" value="Save" onclick=' ' style="width: 60px"/> 
+                    <p></p>
+                    <input type="submit" value="Historic" onclick=' ' style="width: 60px"/>
+                    <p></p>
+                    Abort<input type="checkbox" id="instant" value="Abort" checked=""/>
+                    <p></p>
+                    <input type="submit" value="Clear" onclick="clearIt();
+                            return false;" style="width: 60px"/>
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content"></ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>
