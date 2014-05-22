@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-import javax.inject.Named;
+import javax.ejb.Stateless;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -22,7 +22,7 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author Elsa
  */
-@Named
+@Stateless
 @ServerEndpoint(value = "/whiteboardendpoint", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
 public class MyWhiteboard {
 
