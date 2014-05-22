@@ -13,8 +13,9 @@ if (document.location.protocol === "https:") {
 
 var websocket = new WebSocket(wsUri);
 
-function onOpen() {
-    defineImageBinary();
+function onOpen(evt) {
+    drawImageBinary(evt.data);
+    //defineImageBinary();
 }
 
 websocket.onerror = function(evt) {
@@ -45,7 +46,7 @@ websocket.onmessage = function(evt) {
 function sendText(json) {
     console.log("sending text: " + json);
     websocket.send(json);
-    defineImageBinary();
+//    defineImageBinary();
 }
 
 function onMessage(evt) {
@@ -62,3 +63,7 @@ function sendBinary(bytes) {
     console.log("sending binary: " + Object.prototype.toString.call(bytes));
     websocket.send(bytes);
 }
+
+//funcion saveWhiteboard(){
+//    
+//}
