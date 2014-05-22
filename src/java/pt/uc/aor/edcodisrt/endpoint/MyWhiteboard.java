@@ -19,6 +19,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 import pt.uc.aor.edcodisrt.jsfbean.MessageProducerBean;
+import pt.uc.aor.edcodisrt.jsfbean.UserBean;
 
 /**
  *
@@ -32,6 +33,8 @@ public class MyWhiteboard {
 
     private static ByteBuffer dataActive = ByteBuffer.allocate(1000000);
     private byte[] dataToSave = dataActive.array();
+    @Inject
+    private UserBean userBean;
 
     @Inject
     MessageProducerBean messageProducerBean;
@@ -73,6 +76,10 @@ public class MyWhiteboard {
     @OnClose
     public void onClose(Session peer) {
         peers.remove(peer);
+    }
+
+    public void onCreateSnapshot() {
+        userBean.saveWhiteboard();
     }
 
     public static Set<Session> getPeers() {
