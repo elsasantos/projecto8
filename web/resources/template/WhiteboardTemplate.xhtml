@@ -19,18 +19,7 @@
             <h:outputLabel value="Collaborative WHITEBOARD APP" 
                            style="font-size: 35px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
         </div>
-        <div id="top" class="top">
-            <ui:insert name="top">
-                <div align="right">
-                    <h:outputLabel value="Welcome #{logoutBean.loggedUser()}" 
-                                   style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
-                    <p></p>
-                    <h:form>
-                        <h:commandLink value="Logout" action="#{logoutBean.logout2()}" style="font-size: 14px; color: #dddddd; font-weight: bold; font-family: Trebuchet MS"/>
-                    </h:form>
-                </div>
-            </ui:insert>
-        </div>
+
         <div>
             <div id="left">
                 <ui:insert name="left">
