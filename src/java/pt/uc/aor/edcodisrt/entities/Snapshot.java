@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 /**
@@ -19,6 +21,8 @@ import javax.persistence.Temporal;
  * @author Guilherme Pereira
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Snapshot.findByUser", query = "SELECT s FROM Snapshot s WHERE s.userApp = :userApp")})
 public class Snapshot implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,9 +36,15 @@ public class Snapshot implements Serializable {
     @ManyToOne
     private UserApp userApp;
 
-    String imagePath;
+    private byte[] image;
 
     public Snapshot() {
+    }
+
+    public Snapshot(Date imageDate, UserApp userApp, byte[] image) {
+        this.imageDate = imageDate;
+        this.userApp = userApp;
+        this.image = image;
     }
 
     public Long getId() {
@@ -61,12 +71,12 @@ public class Snapshot implements Serializable {
         this.userApp = userApp;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override

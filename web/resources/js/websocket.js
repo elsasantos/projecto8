@@ -14,8 +14,6 @@ if (document.location.protocol === "https:") {
 var websocket = new WebSocket(wsUri);
 
 function onOpen(evt) {
-    drawImageBinary(evt.data);
-    //defineImageBinary();
 }
 
 websocket.onerror = function(evt) {
@@ -40,7 +38,7 @@ function onError(evt) {
 //// End test functions
 
 websocket.onmessage = function(evt) {
-    onMessage(evt)
+    onMessage(evt);
 };
 
 function sendText(json) {
