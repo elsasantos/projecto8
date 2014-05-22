@@ -13,6 +13,10 @@ if (document.location.protocol === "https:") {
 
 var websocket = new WebSocket(wsUri);
 
+function onOpen() {
+    defineImageBinary();
+}
+
 websocket.onerror = function(evt) {
     onError(evt)
 };

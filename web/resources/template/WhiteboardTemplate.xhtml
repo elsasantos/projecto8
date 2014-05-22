@@ -22,11 +22,12 @@
         <div id="top" class="top">
             <ui:insert name="top">
                 <div align="right">
-                    <h:outputLabel value="Wellcome #{userBean.loggedUser()}   " 
+                    <h:outputLabel value="Welcome #{logoutBean.loggedUser()}" 
                                    style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
                     <p></p>
-                    <h:link value="Logout" onclick="#{logoutBean.logout()}" outcome="/index" 
-                            style="font-size: 14px; color: #dddddd; font-weight: bold; font-family: Trebuchet MS"/>
+                    <h:form>
+                        <h:commandLink value="Logout" action="#{logoutBean.logout()}" style="font-size: 14px; color: #dddddd; font-weight: bold; font-family: Trebuchet MS"/>
+                    </h:form>
                 </div>
             </ui:insert>
         </div>
@@ -34,7 +35,7 @@
             <div id="left">
                 <ui:insert name="left">
                     <p></p>
-                    <input type="submit" value="Save" onclick=' ' style="width: 60px"/> 
+                    <input type="submit" value="Save" onclick="saveWhiteboard()" style="width: 60px"/> 
                     <p></p>
                     <input type="submit" value="Historic" onclick=' ' style="width: 60px"/>
                     <p></p>

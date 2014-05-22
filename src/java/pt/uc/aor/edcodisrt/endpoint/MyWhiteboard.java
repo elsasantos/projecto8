@@ -31,7 +31,8 @@ public class MyWhiteboard {
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
     private static ByteBuffer dataActive = ByteBuffer.allocate(1000000);
-    
+    private byte[] dataToSave = dataActive.array();
+
     @Inject
     MessageProducerBean messageProducerBean;
 
@@ -48,7 +49,7 @@ public class MyWhiteboard {
 
     @OnMessage
     public void broadcastSnapshot(ByteBuffer data, Session session) throws IOException {
-        
+
         System.out.println("broadcastBinary: " + data);
         for (Session peer : peers) {
             if (!peer.equals(session)) {
@@ -73,4 +74,37 @@ public class MyWhiteboard {
     public void onClose(Session peer) {
         peers.remove(peer);
     }
+
+    public static Set<Session> getPeers() {
+        return peers;
+    }
+
+    public static void setPeers(Set<Session> peers) {
+        MyWhiteboard.peers = peers;
+    }
+
+    public static ByteBuffer getDataActive() {
+        return dataActive;
+    }
+
+    public static void setDataActive(ByteBuffer dataActive) {
+        MyWhiteboard.dataActive = dataActive;
+    }
+
+    public byte[] getDataToSave() {
+        return dataToSave;
+    }
+
+    public void setDataToSave(byte[] dataToSave) {
+        this.dataToSave = dataToSave;
+    }
+
+    public MessageProducerBean getMessageProducerBean() {
+        return messageProducerBean;
+    }
+
+    public void setMessageProducerBean(MessageProducerBean messageProducerBean) {
+        this.messageProducerBean = messageProducerBean;
+    }
+
 }

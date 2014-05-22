@@ -28,13 +28,10 @@ public class MessageProducerBean {
     @JMSConnectionFactory("jms/myTopicFactory")
     private JMSContext context;
 
-
     public MessageProducerBean() {
     }
 
-
     public void sendMessage(ByteBuffer message) {
-        System.out.println("entrou");
         byte[] b = new byte[message.capacity()];
         message.get(b, 0, b.length);
         context.createProducer().send(myTopic, b);
@@ -42,5 +39,3 @@ public class MessageProducerBean {
     }
 
 }
-
-
