@@ -6,47 +6,52 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                >
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
     <head>
     </head>
-    <body>
+    <body style="background: #464646">
         <div>
-             <h:form>
-                 <table align="center" >
-            <tr>
-                <td>
-                    <h:outputLabel value="Welcome to Collaborative Whiteboard App" style="font-size: 25px"/>
-                </td>
-                <tr>
+            <h:form>
+                <table align="center" >
+                    <tr>
+                        <td>
+                            <p></p>
+                            <h:outputLabel value="Welcome to Collaborative" style="font-size: 25px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
+                        </td>
+                    </tr>
+                </table>
+                    <table align="center" >
+                    <tr>
+                        <td>
+                            <h:outputLabel value="WHITEBOARD APP" style="font-size: 35px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
+                        </td>
+                    </tr>
 
-                </tr>
-            </tr>
+                </table>
+                <table align="center">
+                    <tr>
+                        <td>
+                            <p></p>
+                            <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000; background: #ffffff"></canvas>
+                        </td>
 
-        </table>
-            <table align="center">
-                <tr>
-                    <td>
-                        <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000;"></canvas>
-                    </td>
-                    <td>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <h:link outcome="user/index" value="Login" />
-                    </td>
-                    <td>
-                </td>
-            </tr>
-        </table>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <p></p>
+                            <h:link outcome="user/index" value="Edit" style="font-size: 20px; font-weight: bold; color:white; font-family: Trebuchet MS "/>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
 
 
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
-    </h:form>
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
+                <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
+            </h:form>
         </div>
     </body>
 </html>

@@ -9,11 +9,11 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
-        <title>TODO supply a title</title>
+        <title>Login Form</title>
         <meta name="viewport" content="width=device-width"/>
     </head>
-    <body>
-        <h:panelGrid>
+    <body style="background: #464646">
+        <h:panelGrid style="font-size: 20px; color: white; font-family: Trebuchet MS;">
             <form method="POST" action="j_security_check">
                 Username: <input type="text" name="j_username"/>
                 Password: <input type="password" name="j_password" />
@@ -21,5 +21,7 @@ and open the template in the editor.
                 <input type="reset" value="Reset" />
             </form>
         </h:panelGrid>
+        <p></p>
+        <h:link outcome="/index" value="Back to Homepage" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS;" />
     </body>
 </html>
