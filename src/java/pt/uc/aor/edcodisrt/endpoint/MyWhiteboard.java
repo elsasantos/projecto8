@@ -10,6 +10,8 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.websocket.EncodeException;
@@ -62,6 +64,17 @@ public class MyWhiteboard {
         dataActive = data;
         messageProducerBean.sendMessage(data);
     }
+    
+     public void onJMSMessage(byte[] msg) {
+        dataActive = ByteBuffer.wrap(msg);
+        for (Session s : peers) {
+            try {
+                s.getBasicRemote().sendBinary(dataActive);
+            } catch (IOException ex) {
+                Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     @OnOpen
     public void onOpen(Session peer) throws IOException {
@@ -79,7 +92,7 @@ public class MyWhiteboard {
     }
 
     public void onCreateSnapshot() {
-        userBean.saveWhiteboard();
+       // userBean.saveWhiteboard();
     }
 
     public static Set<Session> getPeers() {
