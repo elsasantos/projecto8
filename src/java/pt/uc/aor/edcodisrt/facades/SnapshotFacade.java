@@ -16,6 +16,7 @@ import pt.uc.aor.edcodisrt.entities.Snapshot;
  */
 @Stateless
 public class SnapshotFacade extends AbstractFacade<Snapshot> {
+
     @PersistenceContext(unitName = "projecto8")
     private EntityManager em;
 
@@ -26,6 +27,18 @@ public class SnapshotFacade extends AbstractFacade<Snapshot> {
 
     public SnapshotFacade() {
         super(Snapshot.class);
+    }
+
+    public void addSnapshot(Snapshot snap) {
+        this.create(snap);
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
 }
