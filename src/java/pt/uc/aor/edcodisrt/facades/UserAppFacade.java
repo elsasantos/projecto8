@@ -5,6 +5,8 @@
  */
 package pt.uc.aor.edcodisrt.facades;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +18,7 @@ import pt.uc.aor.edcodisrt.entities.UserApp;
  */
 @Stateless
 public class UserAppFacade extends AbstractFacade<UserApp> {
+
     @PersistenceContext(unitName = "projecto8")
     private EntityManager em;
 
@@ -26,6 +29,26 @@ public class UserAppFacade extends AbstractFacade<UserApp> {
 
     public UserAppFacade() {
         super(UserApp.class);
+    }
+
+    public UserApp findbyName(String name) {
+        System.out.println("entrou no método");
+        try {
+            UserApp userlogado = (UserApp) em.createNamedQuery("UserApp.findByName").setParameter("name", name).getSingleResult();
+            System.out.println("user encontrado na entitie: " + userlogado);
+            return userlogado;
+        } catch (NullPointerException | IllegalStateException ex) {
+            Logger.getLogger(UserAppFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
 }

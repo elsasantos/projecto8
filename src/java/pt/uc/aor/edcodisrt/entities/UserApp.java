@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -20,6 +22,8 @@ import javax.persistence.OneToMany;
  * @author Guilherme Pereira
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "UserApp.findByName", query = "SELECT u FROM UserApp u WHERE u.name LIKE :name")})
 public class UserApp implements Serializable {
 
     private static final long serialVersionUID = 1L;
