@@ -8,12 +8,11 @@ package pt.uc.aor.edcodisrt.jsfbean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PrePersist;
 import pt.uc.aor.edcodisrt.endpoint.MyWhiteboard;
 import pt.uc.aor.edcodisrt.entities.Snapshot;
 import pt.uc.aor.edcodisrt.entities.UserApp;
@@ -26,25 +25,18 @@ import pt.uc.aor.edcodisrt.facades.UserAppFacade;
  */
 @Named
 @SessionScoped
-public class UserBean implements Serializable {
+public class UserSession implements Serializable {
 
     @Inject
     private UserAppFacade userFacade;
     @Inject
     private SnapshotFacade snapFacade;
-    @Inject
-    private MyWhiteboard myWhiteboard;
     private String username;
     private UserApp user;
     private Date actualdate;
+    private static Logger log = Logger.getLogger(UserSession.class.getName());
 
-    @PrePersist
-    public void onCreate() {
-        GregorianCalendar gc = new GregorianCalendar();
-        this.setActualdate(gc.getTime());
-    }
-
-    public UserBean() {
+    public UserSession() {
         this.user = new UserApp();
     }
 
@@ -57,22 +49,19 @@ public class UserBean implements Serializable {
     public void saveWhiteboard() {
         Snapshot snap = new Snapshot();
 
-        //procura na entidade UserApp qual o user logado;:
-        List<UserApp> listUser = userFacade.findAll();
-        for (UserApp u : listUser) {
-            if (u.getName().equals(username)) {
-                this.user = u;
-            }
-        }
-
         //vai buscar o array de binarios actual:
-        byte[] activeData = myWhiteboard.getDataToSave();
+        byte[] activeData = MyWhiteboard.getDataActive().array();
+
+        //Cria a data do sistema:
+        GregorianCalendar gc = new GregorianCalendar();
+        this.setActualdate(gc.getTime());
 
         //adiciona o snapshot à entidade:
-        snap.setUserApp(user);
+        snap.setUserApp(userFacade.findbyName(username));
         snap.setImageDate(actualdate);
         snap.setImage(activeData);
-        snapFacade.addSnapshot(snap);
+
+        snapFacade.create(snap);
     }
 
     public UserAppFacade getUserFacade() {
@@ -105,14 +94,6 @@ public class UserBean implements Serializable {
 
     public void setSnapFacade(SnapshotFacade snapFacade) {
         this.snapFacade = snapFacade;
-    }
-
-    public MyWhiteboard getMyWhiteboard() {
-        return myWhiteboard;
-    }
-
-    public void setMyWhiteboard(MyWhiteboard myWhiteboard) {
-        this.myWhiteboard = myWhiteboard;
     }
 
     public Date getActualdate() {

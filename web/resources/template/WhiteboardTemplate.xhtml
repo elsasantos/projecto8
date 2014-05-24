@@ -23,15 +23,17 @@
         <div>
             <div id="left">
                 <ui:insert name="left">
-                    <p></p>
-                    <input type="submit" value="Save" onclick="saveWhiteboard()" style="width: 60px"/> 
-                    <p></p>
-                    <input type="submit" value="Historic" onclick=' ' style="width: 60px"/>
-                    <p></p>
-                    Abort<input type="checkbox" id="instant" value="Abort" checked=""/>
-                    <p></p>
-                    <input type="submit" value="Clear" onclick="clearIt();
-                            return false;" style="width: 60px"/>
+                    <h:form>
+                        <p></p>
+                        <h:commandButton type="submit" value="Save" action="#{userSession.saveWhiteboard()}" onclick="alert('Snapshot guardado com sucesso!!!');" style="width: 60px"/> 
+                        <p></p>
+                        <h:commandButton type="submit" value="Historic"  style="width: 60px"/>
+                        <p></p>
+                        Abort<input type="checkbox" id="instant" value="Abort" checked=""/>
+                        <p></p>
+                        <h:commandButton type="submit" value="Clear" onclick="clearIt();
+                    return false;" style="width: 60px"/>
+                    </h:form>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">

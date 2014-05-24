@@ -58,7 +58,3 @@ function sendBinary(bytes) {
     console.log("sending binary: " + Object.prototype.toString.call(bytes));
     websocket.send(bytes);
 }
-
-function saveWhiteboard(){
-//    websocket.
-}
