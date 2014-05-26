@@ -10,6 +10,10 @@ var context = canvas.getContext("2d");
 
 canvas.addEventListener("click", defineImage, false);
 
+var checkbox = document.getElementById("check");
+
+checkbox.addEventListener("click", sendBoxState, false);
+
 function getCurrentPos(evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -58,15 +62,19 @@ function drawImageText(image) {
             context.arc(json.coords.x, json.coords.y, 5, 0, 2 * Math.PI, false);
             context.fill();
             break;
-        case "square": 
+        case "square":
         default:
             context.fillRect(json.coords.x, json.coords.y, 10, 10);
             break;
     }
 }
 
-function showUsersNumber(str){
+function showEditNumber(str) {
     $('#numberPeers').html(str);
+}
+
+function showAbortNumber(str) {
+    $('#numberAborts').html(str);
 }
 
 function drawImageBinary(blob) {
@@ -100,4 +108,20 @@ function clearIt() {
     alert('Vou limpar!!!');
     context.clearRect(0, 0, canvas.width, canvas.height);
     defineImageBinary();
+}
+
+window.onbeforeunload = function(evt) {
+    if (checkbox.checked) {
+        sendText("goChecked");
+    } else {
+        sendText("goNotChecked");
+    }
+}
+
+function  sendBoxState() {
+    if (checkbox.checked) {
+        sendText("checked");
+    } else {
+        sendText("notChecked");
+    }
 }
