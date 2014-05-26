@@ -97,7 +97,12 @@ public class UserController {
     }
 
     public List<Snapshot> listSnapshotUser() {
-        return snapshotFacade.userSnapshot(user);
+        return snapshotFacade.userSnapshot(userFacade.findbyName(loggedUser()));
+    }
+
+    public String deleteSnapshot(Snapshot snap) {
+        snapshotFacade.remove(snap);
+        return "historic";
     }
 
     public SnapshotFacade getSnapshotFacade() {

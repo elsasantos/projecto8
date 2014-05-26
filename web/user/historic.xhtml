@@ -1,6 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<ui:composition xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/resources/template/WhiteboardTemplate.xhtml">
@@ -17,22 +19,46 @@
                 </div>
             </ui:insert>
         </div>
+        <h:form>
+            <p:dataTable value="#{userController.listSnapshotUser()}" var="item" style="width: 80%; margin-bottom:40px">
+                <p:column headerText="DATE" sortBy="#{item.imageDate}">
+                    <p:commandLink value="#{item.imageDate}"/>
+                </p:column>
 
-        <p:dataTable value="#{userController.listSnapshotUser()}" var="item">
-            <p:column headerText="DATE">
-                <p:commandLink value="#{item.imageDate}"/>
-            </p:column>
+                <p:column headerText="VIEW" >
+                    <p:commandLink  value="View"  type="button"
+                                    oncomplete="dialog1.show()" update=":d1">
+                    </p:commandLink>
+                </p:column>
 
-            <p:column headerText="VIEW">
-                <h:outputLabel value="View"  />
-            </p:column>
-            
-            <p:column headerText="DELETE">
-                <h:outputLabel value="#{userController.deleteSnapshot(item)}" />
-            </p:column>
-            
-        </p:dataTable>
+                <p:column headerText="DELETE">
+                    <p:growl id="message" showDetail="true" />
 
+                    <p:commandLink  value="Delete" actionListener="#{userController.deleteSnapshot(item)}" update="message">
+                        <p:confirm header="Delete Confirm" message="Are you sure you want to delete this Snapshot?" icon="ui-icon-alert" />
+                    </p:commandLink>
+
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+        
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+            <h:form>
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </h:form>
+        </p:confirmDialog>
+
+        <p:dialog id="d1"  header="View Snapshot" widgetVar="dialog1" modal="true" height="400" width="400">  
+            <h:form>
+                <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000; background: #ffffff"></canvas>
+            </h:form>
+        </p:dialog>
+
+        <p></p>
+        <h:link outcome="/user/index.xhtml" value="Back to Collaborative Whiteboard" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS;" />
+        <p></p>
         Peers: <div id="numberPeers"></div>
 
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
