@@ -4,20 +4,6 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
                 template="/resources/template/WhiteboardTemplate.xhtml">
     <ui:define name="content">
-
-        <div id="top" class="top">
-            <ui:insert name="top">
-                <div align="right">
-                    <h:outputLabel value="Welcome #{userController.loggedUser()}" 
-                                   style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
-                    <p></p>
-                    <h:form>
-                        <h:commandLink value="Logout" action="#{userController.logout()}" />
-                    </h:form>
-                </div>
-            </ui:insert>
-        </div>
-
         <table align="center">
             <tr>
                 <td>

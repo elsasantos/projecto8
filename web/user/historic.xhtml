@@ -7,18 +7,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/resources/template/WhiteboardTemplate.xhtml">
     <ui:define name="content">
-        <div id="top" class="top">
-            <ui:insert name="top">
-                <div align="right">
-                    <h:outputLabel value="Welcome #{userController.loggedUser()}" 
-                                   style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
-                    <p></p>
-                    <h:form>
-                        <h:commandLink value="Logout" action="#{userController.logout()}" />
-                    </h:form>
-                </div>
-            </ui:insert>
-        </div>
         <h:form>
             <p:dataTable value="#{userController.listSnapshotUser()}" var="item" style="width: 80%; margin-bottom:40px">
                 <p:column headerText="DATE" sortBy="#{item.imageDate}">
@@ -26,8 +14,9 @@
                 </p:column>
 
                 <p:column headerText="VIEW" >
-                    <p:commandLink  value="View"  type="button"
+                    <p:commandLink  ajax="false" value="View"  type="button"
                                     oncomplete="dialog1.show()" update=":d1">
+                        <p:ajax process="@this" rendered=":d1"/>
                     </p:commandLink>
                 </p:column>
 
