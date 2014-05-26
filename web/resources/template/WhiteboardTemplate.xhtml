@@ -14,25 +14,12 @@
     </h:head>
 
     <h:body style="background: #464646">
-        <div>
-            <div id="title">
-                <h:outputLabel value="Collaborative WHITEBOARD APP" 
-                               style="font-size: 35px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
-            </div>
-            <div id="top" class="top">
-                <ui:insert name="top">
-                    <div align="right">
-                        <h:outputLabel value="Welcome #{userController.loggedUser()}" 
-                                       style="font-size: 20px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
-                        <p></p>
-                        <h:form>
-                            <h:commandLink value="Logout" action="#{userController.logout()}" />
-                        </h:form>
-                    </div>
-                </ui:insert>
-            </div>
+
+        <div id="title">
+            <h:outputLabel value="Collaborative WHITEBOARD APP" 
+                           style="font-size: 35px; color: white; font-weight: bold; font-family: Trebuchet MS"/>
         </div>
-        
+
         <div>
             <div id="left">
                 <ui:insert name="left">
