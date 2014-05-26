@@ -10,6 +10,7 @@ import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -34,18 +35,45 @@ public class MyWhiteboard {
 
     private static ByteBuffer dataActive = ByteBuffer.allocate(1000000);
 
+    private static int online;
+    private static int aborts;
+
     @Inject
-    MessageProducerBean messageProducerBean;
+    private MessageProducerBean messageProducerBean;
 
     @OnMessage
-    public void broadcastFigure(Figure figure, Session session) throws IOException, EncodeException {
+    public void sendNumbers(String numbers, Session session) throws IOException {
 
-        System.out.println("broadcastFigure: " + figure);
-        for (Session peer : peers) {
-            if (!peer.equals(session)) {
-                peer.getBasicRemote().sendObject(figure);
-            }
+        switch (numbers) {
+            case "checked":
+                online--;
+                aborts++;
+
+                break;
+            case "notChecked":
+                online++;
+                aborts--;
+
+                break;
+            case "goChecked":
+                aborts--;
+                break;
+            case "goNotChecked":
+                online--;
+                break;
         }
+        if (aborts < 0) {
+            aborts = 0;
+        }
+        if (online < 0) {
+            online = 0;
+        }
+
+        for (Session p : peers) {
+            p.getBasicRemote().sendText("{\"edit\":" + online + ",\"abort\":" + aborts + "}");
+        }
+        messageProducerBean.sendText(online + " " + aborts);
+
     }
 
     @OnMessage
@@ -60,8 +88,8 @@ public class MyWhiteboard {
         dataActive = data;
         messageProducerBean.sendMessage(data);
     }
-    
-     public void onJMSMessage(byte[] msg) {
+
+    public void onJMSMessage(byte[] msg) {
         dataActive = ByteBuffer.wrap(msg);
         for (Session s : peers) {
             try {
@@ -72,14 +100,39 @@ public class MyWhiteboard {
         }
     }
 
+    public void onJMSMessageText(String msg) {
+        StringTokenizer div = new StringTokenizer(msg);
+        String[] numbers = new String[2];
+
+        for (int i = 0; i < 2; i++) {
+            numbers[i] = div.nextToken();
+        }
+
+        online = Integer.parseInt(numbers[0]);
+        aborts = Integer.parseInt(numbers[1]);
+
+        for (Session s : peers) {
+            try {
+                s.getBasicRemote().sendText("{\"edit\":" + online + ",\"abort\":" + aborts + "}");
+            } catch (IOException ex) {
+                Logger.getLogger(MyWhiteboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     @OnOpen
     public void onOpen(Session peer) throws IOException {
+
+        if (peer.getUserPrincipal().getName() != null) {
+            online++;
+        }
         peers.add(peer);
         peer.getBasicRemote().sendBinary(dataActive);
 
         for (Session p : peers) {
-            p.getBasicRemote().sendText(String.valueOf(peers.size()));
+            p.getBasicRemote().sendText("{\"edit\":" + online + ",\"abort\":" + aborts + "}");
         }
+        messageProducerBean.sendText(online + " " + aborts);
     }
 
     @OnClose

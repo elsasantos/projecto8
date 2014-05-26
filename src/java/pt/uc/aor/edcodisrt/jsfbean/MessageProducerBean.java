@@ -7,6 +7,7 @@ package pt.uc.aor.edcodisrt.jsfbean;
 
 import java.nio.ByteBuffer;
 import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -18,8 +19,8 @@ import javax.jms.Topic;
  *
  * @author Guilherme Pereira
  */
-@Named(value = "messageProducerBean")
-@RequestScoped
+
+@Stateless
 public class MessageProducerBean {
 
     @Resource(lookup = "jms/myTopic")
@@ -36,6 +37,10 @@ public class MessageProducerBean {
         message.get(b, 0, b.length);
         context.createProducer().send(myTopic, b);
         System.out.println("sending message " + message.toString());
+    }
+    public void sendText(String message) {
+        context.createProducer().send(myTopic, message);
+        System.out.println("sending message " + message);
     }
 
 }

@@ -32,12 +32,21 @@ public class MessageDrivenBean implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
+
         try {
-            myWhiteboard.onJMSMessage(message.getBody(byte[].class));
-            System.out.println("Recebido no Message Driven Bean: " + message.getBody(byte[].class));
+            if (message.isBodyAssignableTo(String.class)) {
+                myWhiteboard.onJMSMessageText(message.getBody(String.class));
+            } else {
+
+                try {
+                    myWhiteboard.onJMSMessage(message.getBody(byte[].class));
+                    System.out.println("Recebido no Message Driven Bean: " + message.getBody(byte[].class));
+                } catch (JMSException ex) {
+                    Logger.getLogger(MessageDrivenBean.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         } catch (JMSException ex) {
             Logger.getLogger(MessageDrivenBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

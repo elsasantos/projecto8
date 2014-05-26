@@ -47,7 +47,12 @@ function sendText(json) {
 function onMessage(evt) {
     console.log("received: " + evt.data);
     if (typeof evt.data === "string") {
-        showUsersNumber(evt.data);
+        var json = JSON.parse(evt.data);
+        showEditNumber(json.edit);
+        showAbortNumber(json.abort);
+        if(json.edit===0){
+            clearIt();
+        }
     } else {
         drawImageBinary(evt.data);
     }
