@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -39,9 +40,9 @@
                 <ui:insert name="left">
                     <h:form>
                         <p></p>
-                        <h:commandButton type="submit" value="Save" action="#{userController.saveWhiteboard()}" onclick="alert('Snapshot guardado com sucesso!!!');" style="width: 60px"/> 
+                        <p:commandButton type="submit" value="Save" action="#{userController.saveWhiteboard()}" onclick="alert('Snapshot guardado com sucesso!!!');" style="width: 60px"/> 
                         <p></p>
-                        <h:commandButton type="submit" value="Historic" action="/user/historic1.xhtml" style="width: 60px"/>
+                        <p:commandButton type="submit" value="Historic" action="/user/historic1.xhtml" style="width: 60px"/>
                         <p>
                         Abort<input type="checkbox" id="check" value="Abort" checked=""/>
                         </p>

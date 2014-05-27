@@ -5,7 +5,8 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/resources/template/WhiteboardTemplate.xhtml">
+                template="/resources/template/WhiteboardTemplate.xhtml"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
         <h:form>
@@ -34,20 +35,15 @@
         </h:form>
 
         <h:form binding="#{userSession.confirmShowImage}" rendered="#{userSession.renderedImage}" >
-            <h:outputLabel value="Image #{item.imageDate}"/>
+            <h:outputLabel value="Image #{userSession.snapshotSelected.imageDate}"/>
             <br></br>
-            <h:graphicImage value="#{showImage.image}" width="300px" height="300px">
+            <p:graphicImage value="#{showImage.image}" >
                 <f:param name="id" value="#{userSession.snapshotSelected.id}"/>
-            </h:graphicImage>
+            </p:graphicImage>
             <br></br>
         </h:form>
 
         <p></p>
         <h:link outcome="/user/index.xhtml" value="Back to Collaborative Whiteboard" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS;" />
-        <p></p>
-        Peers: <div id="numberPeers"></div>
-
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
-        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
     </ui:define>
 </ui:composition>
