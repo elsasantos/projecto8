@@ -27,7 +27,7 @@ import pt.uc.aor.edcodisrt.jsfbean.MessageProducerBean;
  * @author Elsa
  */
 @Stateless
-@ServerEndpoint(value = "/whiteboardendpoint", encoders = {FigureEncoder.class}, decoders = {FigureDecoder.class})
+@ServerEndpoint(value = "/whiteboardendpoint")
 public class MyWhiteboard {
 
     private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
