@@ -10,12 +10,10 @@
 
     <ui:define name="content">
         <h:form>
-            <h:dataTable value="#{userController.listSnapshotUser()}" var="item" style="width: 80%; margin-bottom:40px">
+            <h:dataTable value="#{userController.listSnapshotUser()}" var="item" style="width: 80%; margin-bottom:40px; text-align: center; border:4px solid #000000;" border="1" cellpadding="2" cellspacing="2" rules="all" styleClass="CSSTableGenerator"
+                                     headerClass="dataTableTitle">
                 <h:column>
-                    <f:facet name="header">DATE
-                        <h:commandButton image="resources/images/arrow_top.png"  style="width: 15px" />
-                        <h:commandButton image="resources/images/arrow_down.png" style="width: 15px"/>
-                    </f:facet>
+                    <f:facet name="header">DATE</f:facet>
                     #{item.imageDate}
                 </h:column>
 
@@ -34,16 +32,17 @@
             </h:dataTable>
         </h:form>
 
-        <h:form binding="#{userSession.confirmShowImage}" rendered="#{userSession.renderedImage}" >
-            <h:outputLabel value="Image #{userSession.snapshotSelected.imageDate}"/>
+        <p></p>
+        <h:link outcome="/user/index.xhtml" value="Back to Collaborative Whiteboard" style="font-size: 12px; color: #dddddd; font-family: Trebuchet MS;" />
+        
+        <h:form binding="#{userSession.confirmShowImage}" rendered="#{userSession.renderedImage}" style="text-align: center">
+            <h:outputLabel value="Image #{userSession.snapshotSelected.imageDate}" style="font-size: 14px;color: gray; font-weight: bold"/>
             <br></br>
-            <p:graphicImage value="#{showImage.image}" >
+            <p:graphicImage value="#{showImage.image}" style="border:4px solid #000000; background: #ffffff">
                 <f:param name="id" value="#{userSession.snapshotSelected.id}"/>
             </p:graphicImage>
             <br></br>
         </h:form>
 
-        <p></p>
-        <h:link outcome="/user/index.xhtml" value="Back to Collaborative Whiteboard" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS;" />
     </ui:define>
 </ui:composition>

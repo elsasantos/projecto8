@@ -102,7 +102,7 @@ public class UserController {
 
     public String deleteSnapshot(Snapshot snap) {
         snapshotFacade.remove(snap);
-        return "historic";
+        return "historic1";
     }
 
     public SnapshotFacade getSnapshotFacade() {

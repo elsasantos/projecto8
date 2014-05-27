@@ -4,12 +4,14 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
                 template="/resources/template/WhiteboardTemplate.xhtml">
     <ui:define name="content">
-        <table align="center">
+        <table align="center" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS; margin-left: 30%">
             <tr>
                 <td>
                     <p></p>
                     <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000; background: #ffffff"></canvas>
                 </td>
+            </tr>
+            <tr>
                 <td>
                     <form name="inputForm" >
                         <table>
@@ -34,8 +36,10 @@
             </tr>
         </table>
 
-        Edit: <div id="numberPeers"></div>
-        Abort: <div id="numberAborts"></div>
+
+        <p></p>
+            Edit: <div id="numberPeers"></div>
+            Abort: <div id="numberAborts"></div>
 
 
         <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
