@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/resources/template/WhiteboardTemplate.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+            <h:dataTable value="#{userController.listSnapshotUser()}" var="item" style="width: 80%; margin-bottom:40px">
+                <h:column>
+                    <f:facet name="header">DATE
+                        <h:commandButton image="resources/images/arrow_top.png"  style="width: 15px" />
+                        <h:commandButton image="resources/images/arrow_down.png" style="width: 15px"/>
+                    </f:facet>
+                    #{item.imageDate}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">VIEW</f:facet>
+                    <h:commandLink  value="View"  type="submit"  action="#{userSession.prepareImage()}">
+                        <f:setPropertyActionListener target="#{userSession.snapshotSelected}" value="#{item}" />
+                    </h:commandLink>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">DELETE</f:facet>
+                    <h:commandLink  value="Delete"  type="submit" action="#{userController.deleteSnapshot(item)}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:form>
+
+        <h:form binding="#{userSession.confirmShowImage}" rendered="#{userSession.renderedImage}" >
+            <h:outputLabel value="Image #{item.imageDate}"/>
+            <br></br>
+            <h:graphicImage value="#{showImage.image}" width="300px" height="300px">
+                <f:param name="id" value="#{userSession.snapshotSelected.id}"/>
+            </h:graphicImage>
+            <br></br>
+        </h:form>
+
+        <p></p>
+        <h:link outcome="/user/index.xhtml" value="Back to Collaborative Whiteboard" style="font-size: 14px; color: #dddddd; font-family: Trebuchet MS;" />
+        <p></p>
+        Peers: <div id="numberPeers"></div>
+
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/websocket.js"></script>
+        <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/resources/js/whiteboard.js"></script>
+    </ui:define>
+</ui:composition>

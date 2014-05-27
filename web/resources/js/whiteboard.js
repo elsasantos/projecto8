@@ -105,7 +105,6 @@ function defineImageBinary() {
 }
 
 function clearIt() {
-    alert('Vou limpar!!!');
     context.clearRect(0, 0, canvas.width, canvas.height);
     defineImageBinary();
 }

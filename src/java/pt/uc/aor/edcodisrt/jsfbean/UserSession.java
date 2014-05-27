@@ -6,18 +6,13 @@
 package pt.uc.aor.edcodisrt.jsfbean;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.component.UIForm;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.aor.edcodisrt.endpoint.MyWhiteboard;
 import pt.uc.aor.edcodisrt.entities.Snapshot;
-import pt.uc.aor.edcodisrt.entities.UserApp;
 import pt.uc.aor.edcodisrt.facades.SnapshotFacade;
-import pt.uc.aor.edcodisrt.facades.UserAppFacade;
 
 /**
  *
@@ -28,80 +23,79 @@ import pt.uc.aor.edcodisrt.facades.UserAppFacade;
 public class UserSession implements Serializable {
 
     @Inject
-    private UserAppFacade userFacade;
-    @Inject
-    private SnapshotFacade snapFacade;
-    private String username;
-    private UserApp user;
-    private Date actualdate;
-    private static Logger log = Logger.getLogger(UserSession.class.getName());
+    private SnapshotFacade snapshotFacade;
+    private Snapshot snapshotSelected;
+    private UIForm confirmShowImage;
+    private boolean renderedImage;
 
     public UserSession() {
-        this.user = new UserApp();
     }
 
-    public String loggedUser() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        this.username = context.getExternalContext().getRemoteUser();
-        return username;
+    @PostConstruct
+    public void init() {
+        this.renderedImage = false;
     }
 
-    public void saveWhiteboard() {
-        Snapshot snap = new Snapshot();
-
-        //vai buscar o array de binarios actual:
-        byte[] activeData = MyWhiteboard.getDataActive().array();
-
-        //Cria a data do sistema:
-        GregorianCalendar gc = new GregorianCalendar();
-        this.setActualdate(gc.getTime());
-
-        //adiciona o snapshot à entidade:
-        snap.setUserApp(userFacade.findbyName(username));
-        snap.setImageDate(actualdate);
-        snap.setImage(activeData);
-
-        snapFacade.create(snap);
+//    public StreamedContent showImage() throws IOException, ArrayIndexOutOfBoundsException, NullPointerException {
+//        System.out.println("Entro no método que mostra a imagem");
+//        System.out.println("Snap selecionado: " + snapshotSelected.getId());
+//        byte[] imageData = snapshotSelected.getImage();
+//        BufferedImage img = new BufferedImage(500, 300, BufferedImage.TYPE_4BYTE_ABGR);
+//        img.getRaster().setDataElements(0, 0, 500, 300, imageData);
+//        ByteArrayOutputStream os = new ByteArrayOutputStream();
+//        ImageIO.write(img, "png", os);
+//        InputStream is = new ByteArrayInputStream(os.toByteArray());
+//        StreamedContent image = new DefaultStreamedContent(is, "image/png");
+//        return image;
+//    }
+    public void prepareImage() {
+        confirmShowImage.setRendered(true);
     }
 
-    public UserAppFacade getUserFacade() {
-        return userFacade;
+    public Snapshot snapSelect(Snapshot snap) {
+        this.snapshotSelected = snap;
+        return snapshotSelected;
     }
 
-    public void setUserFacade(UserAppFacade userFacade) {
-        this.userFacade = userFacade;
+//    public String prepare() {
+//        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+//        flash.put("item", snapshotSelected);
+//        return "/user/snapshot?faces-redirect=true";
+//    }
+    public SnapshotFacade getSnapshotFacade() {
+        return snapshotFacade;
     }
 
-    public UserApp getUser() {
-        return user;
+    public void setSnapshotFacade(SnapshotFacade snapshotFacade) {
+        this.snapshotFacade = snapshotFacade;
     }
 
-    public void setUser(UserApp user) {
-        this.user = user;
+    public Snapshot getSnapshotSelected() {
+        return snapshotSelected;
     }
 
-    public String getUsername() {
-        return username;
+    public void setSnapshotSelected(Snapshot snapshotSelected) {
+        if (snapshotSelected != null) {
+            this.renderedImage = true;
+            System.out.println("FOI RENDERIZADO");
+        }
+        this.snapshotSelected = snapshotSelected;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public UIForm getConfirmShowImage() {
+        return confirmShowImage;
     }
 
-    public SnapshotFacade getSnapFacade() {
-        return snapFacade;
+    public void setConfirmShowImage(UIForm confirmShowImage) {
+        this.confirmShowImage = confirmShowImage;
     }
 
-    public void setSnapFacade(SnapshotFacade snapFacade) {
-        this.snapFacade = snapFacade;
+    public boolean isRenderedImage() {
+        return renderedImage;
     }
 
-    public Date getActualdate() {
-        return actualdate;
-    }
-
-    public void setActualdate(Date actualdate) {
-        this.actualdate = actualdate;
+    public void setRenderedImage(boolean renderedImage) {
+        this.renderedImage = renderedImage;
     }
 
 }

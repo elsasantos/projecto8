@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <f:event type="preRenderView" listener="#{userSession.showImage()}" />
+    </h:head>
+    <h:body>
+        <h:form>
+            <canvas id="myCanvas" width="300" height="300" style="border:4px solid #000000; background: #ffffff"></canvas>
+        </h:form>
+    </h:body>
+</html>

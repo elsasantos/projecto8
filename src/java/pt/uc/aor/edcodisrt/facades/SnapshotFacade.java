@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import pt.uc.aor.edcodisrt.entities.Snapshot;
 import pt.uc.aor.edcodisrt.entities.UserApp;
@@ -38,6 +39,17 @@ public class SnapshotFacade extends AbstractFacade<Snapshot> {
             List<Snapshot> s = em.createNamedQuery("Snapshot.findByUser").setParameter("userApp", user).getResultList();
             return s;
         } catch (NullPointerException | IllegalStateException ex) {
+            Logger.getLogger(SnapshotFacade.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
+    public byte[] getImageData(Long snapId) {
+        try {
+            byte[] s = (byte[]) em.createNamedQuery("Snapshot.findById").setParameter("id", snapId).getSingleResult();
+            System.out.println("Encontrou o array dos bytes do nº " + snapId);
+            return s;
+        } catch (ArrayIndexOutOfBoundsException | NoResultException | NullPointerException ex) {
             Logger.getLogger(SnapshotFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }

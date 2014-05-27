@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -123,7 +122,7 @@ public class MyWhiteboard {
     @OnOpen
     public void onOpen(Session peer) throws IOException {
 
-        if (peer.getUserPrincipal().getName() != null) {
+        if (peer.getUserPrincipal() != null) {
             online++;
         }
         peers.add(peer);
